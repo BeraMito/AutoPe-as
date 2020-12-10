@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+<head>
+<title>ComprasCRUD - Compras</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link type="text/css" th:href="@{/css/compras.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="container fluid">
+	<p class="login">
+		   Usuário Logado:
+		   <span th:text="${session.usuario.login}" th:unless="${session.usuario == null}"></span> ID: <span th:text="${session.usuario.id}" th:unless="${session.usuario == null}"></span>
+		   <a href="/logoutUsuario" class="btn btn-dark">Sair</a>
+	</p>
+	<h1>Lista de compras</h1>
+	<ul class="list-group" th:each="compra : ${compras}">
+		<li class="list-group-item">
+			<b> Descrição: <a th:href="${(#mvc.url('CC#detalhesCompra').arg(0, compra.compraId)).build()}">
+								</b><span th:text="${compra.descricao}"></span> <br>
+							</a>
+			<b> Data: </b><span th:text="${compra.data}"></span> <br>
+			<div th:if="${compra.itens.isEmpty} != true">
+				<b> Itens: </b><span th:text="${#lists.size(compra.itens)}"></span> itens <a class="btn btn-info" th:href="${(#mvc.url('CC#detalhesCompra').arg(0, compra.compraId)).build()}">Ver itens</a> <a class="btn btn-info" th:href="${(#mvc.url('CC#detalhesCompra').arg(0, compra.compraId)).build()}">Adicionar item</a> <br>
+			</div>
+			<div th:if="${compra.itens.isEmpty} == true">
+				<b> Itens: </b>Não há itens por enquanto <a class="btn btn-info" th:href="${(#mvc.url('CC#detalhesCompra').arg(0, compra.compraId)).build()}">Adicionar item</a> <br>
+			</div>
+			<b> Total: </b><span th:text="${compra.total}"></span> <br>
+			<a class="btn btn-danger" th:href="${(#mvc.url('CC#deletarCompra').arg(0, compra.compraId)).build()}">Deletar compra</a> <br>
+		</li>
+			
+	</ul>
+	<br>
+	<a class="btn btn-primary" href="/cadastrarCompra">Adicionar compra</a>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

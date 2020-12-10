@@ -1,0 +1,11 @@
+@charset "ISO-8859-1";
+
+.login {
+    text-align: right;
+    margin-top: 5px;
+}
+
+.login a {
+    margin-left: 20px;
+    padding: 0px 10px 0 10px;
+}
